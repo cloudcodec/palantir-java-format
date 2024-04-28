@@ -6,6 +6,11 @@
 <a href="https://autorelease.general.dmz.palantir.tech/palantir/palantir-java-format"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
 </p>
 
+# [IntelliJ plugin]Switch `project jdk` to `${IDEA_HOME}/jbr`
+```
+when project jdk is 8, this plugin will not working,it needs jdk>=11
+```
+
 # Palantir Java Format
 
 _A modern, lambda-friendly, 120 character Java formatter._

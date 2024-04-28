@@ -134,13 +134,24 @@ final class FormatterProvider {
     }
 
     private static Path getJdkPath(Project project) {
-        return getProjectJdk(project)
-                .map(Sdk::getHomePath)
-                .map(Path::of)
-                .map(sdkHome -> sdkHome.resolve("bin").resolve("java" + (SystemInfo.isWindows ? ".exe" : "")))
-                .filter(Files::exists)
-                .orElseThrow(() ->
-                        new IllegalStateException("Could not determine JDK path for project: " + project.getName()));
+        Path javaPath;
+        if (SystemInfo.isMac) {
+            javaPath = Path.of(com.intellij.openapi.application.PathManager.getHomePath())
+                    .resolve("jbr")
+                    .resolve("Contents")
+                    .resolve("Home")
+                    .resolve("bin")
+                    .resolve("java");
+        } else {
+            javaPath = Path.of(com.intellij.openapi.application.PathManager.getHomePath())
+                    .resolve("jbr")
+                    .resolve("bin")
+                    .resolve("java" + (SystemInfo.isWindows ? ".exe" : ""));
+        }
+        if (!Files.exists(javaPath)) {
+            throw new IllegalStateException(javaPath + " does not exist");
+        }
+        return javaPath;
     }
 
     private static OptionalInt getSdkVersion(Project project) {

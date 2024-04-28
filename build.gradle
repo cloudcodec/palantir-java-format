@@ -30,7 +30,7 @@ apply plugin: 'com.palantir.git-version'
 apply plugin: 'com.palantir.baseline'
 apply plugin: 'com.palantir.consistent-versions'
 
-version System.env.CIRCLE_TAG ?: gitVersion()
+version System.env.GITHUB_REF_NAME ?: gitVersion()
 
 allprojects {
     apply plugin: 'com.palantir.baseline-null-away'

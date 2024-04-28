@@ -161,7 +161,8 @@ public final class BootstrappingFormatterService implements FormatterService {
 
         final class Builder extends ImmutableFormatterCliArgs.Builder {
             Builder withJvmArgsForVersion(Integer majorJvmVersion) {
-                if (majorJvmVersion >= 16) {
+                // jbr >= 17 ,`majorJvmVersion > 16` is always true
+                if (majorJvmVersion > 16 || true) {
                     addJvmArgs(
                             "--add-exports", "jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
                             "--add-exports", "jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
